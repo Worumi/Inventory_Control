@@ -1,0 +1,27 @@
+[project]
+name = "inventory-control"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Alfredo Naranjo", email = "alfredo.naranjo1@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "jupyter>=1.1.1",
+    "nicegui>=3.15.0",
+    "pandas>=3.0.5",
+    "pyside6>=6.11.1",
+    "pywebview[pyside6]>=6.2.1",
+    "sqlmodel>=0.0.39",
+]
+
+[project.scripts]
+inventory-control = "inventory_control:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.setuptools]
+packages = ["src"]
