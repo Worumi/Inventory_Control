@@ -38,7 +38,7 @@ class ProductList(SQLModel, table=True):
         **operation**: str
         **related_id**: int | None
     """
-    id_product: int | None = Field(default=None, primary_key=True)
+    id_operation: int | None = Field(default=None, primary_key=True)
     product_name: str
     quantity: int
     price: Decimal
@@ -81,7 +81,7 @@ def deliver_item(product_name: str, quantity_to_deliver: int):
 def purchase_return(id: int, quantity_returned: int):
     with Session(engine) as session:
         statement = select(ProductList).where(or_(
-            ProductList.id_product == id,
+            ProductList.id_operation == id,
             ProductList.related_id == id
         ))
         
@@ -98,7 +98,7 @@ def purchase_return(id: int, quantity_returned: int):
                 price=ToDecimal(product_to_record.price),
                 total=total,
                 operation=Operations.PURCHASE_RETURN.value,
-                related_id=product_to_record.id_product
+                related_id=product_to_record.id_operation
             )
             session.add(product_to_return)
             session.commit()
@@ -106,7 +106,7 @@ def purchase_return(id: int, quantity_returned: int):
 def cost_return(id: int, quantity_returned: int):
     with Session(engine) as session:
         statement = select(ProductList).where(or_(
-            ProductList.id_product == id,
+            ProductList.id_operation == id,
             ProductList.related_id == id
         ))
         
