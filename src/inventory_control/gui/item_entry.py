@@ -21,7 +21,7 @@ class PurchaseForm:
                     self.unit_price = ui.number(label="Price", min=0, max=999, format="%.2f").on("keyup", handler=self.total_calculation).classes("w-40")
 
                 with sub_container_2:
-                    ui.label(text="Total €").classes("text-4xl")
+                    ui.label(text="Total").classes("text-4xl")
                     self.total = ui.label(text=f"{0:,.2f}").classes("text-4xl text-blue-700")
 
                 with ui.row().classes("w-full mt-12 justify-center"):
@@ -31,9 +31,9 @@ class PurchaseForm:
     def total_calculation(self):
         try:
             self.total_calulated =  int(self.purchased_quantity.value) * ToDecimal(self.unit_price.value)
-        except ValueError, TypeError:
+        except (ValueError, TypeError):
             self.total_calulated = 0
-        self.total.text = self.total_calulated
+        self.total.text = f"{self.total_calulated:,.2f} €"
 
     def clear(self):
         self.product.value = ""
@@ -45,7 +45,7 @@ class PurchaseForm:
             product_name=self.product.value,
             quantity=self.purchased_quantity.value,
             price=self.unit_price.value,
-            total=float(self.total.text),
+            total=float(self.total_calulated),
             operation=Operations.PURCHASE.value,
         )
         purchase_item(product)
