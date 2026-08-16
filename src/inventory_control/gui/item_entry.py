@@ -3,10 +3,9 @@ from inventory_control.db_models import Products, Operations
 from inventory_control.tools import ToDecimal
 from inventory_control.db_models import purchase_item, ProductList
 
-class PurchaseForm:
+class ProductEntryForm:
     def __init__(self):
         container = ui.column().classes("w-full mt-10 p-10 items-center")
-
         with container:
             ui.label("Item Entry").classes("text-4xl mb-8 text-blue-600")
             with ui.row().classes("w-full justify-center"):
@@ -52,5 +51,5 @@ class PurchaseForm:
 
 
 if __name__ in {"__main__", "__mp_main__"}:
-    gui = PurchaseForm()
+    gui = ProductEntryForm()
     ui.run()

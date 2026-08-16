@@ -6,7 +6,6 @@ import pandas as pd
 class PurchaseReturnForm:
     def __init__(self):
         container = ui.column().classes("w-full justify-center")
-
         with container:
             with ui.row().classes("mx-auto mb-5"):
                 with ui.column():
