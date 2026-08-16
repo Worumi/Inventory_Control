@@ -24,8 +24,8 @@ class ProductEntryForm:
                     self.total = ui.label(text=f"{0:,.2f}").classes("text-4xl text-blue-700")
 
                 with ui.row().classes("w-full mt-12 justify-center"):
-                    ui.button(text="Save").props("color=blue").classes("w-30").on_click(callback=self.save)
-                    ui.button(text="Cancel").props("color=red").classes("w-30").on_click(callback=self.clear)
+                    ui.button(text="Save", icon="save").props("color=primary").classes("w-30").on_click(callback=self.save)
+                    ui.button(text="Clear", icon="clear").props("color=teal").classes("w-30").on_click(callback=self.clear)
 
     def total_calculation(self):
         try:
