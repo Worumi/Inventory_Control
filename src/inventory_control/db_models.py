@@ -1,7 +1,7 @@
 from decimal import Decimal
 from sqlmodel import Field, SQLModel, Session, create_engine, select, or_
 from enum import Enum
-from inventory_control.tools import ToDecimal, inventory_report
+from inventory_control.tools import ToDecimal, get_inventory_data
 from pathlib import Path
 
 class Operations(str, Enum):
@@ -61,7 +61,7 @@ def purchase_item(product: ProductList):
         session.commit()
 
 def deliver_item(product_name: str, quantity_to_deliver: int):
-    data = inventory_report(product_name)
+    data = get_inventory_data(product_name)
     unit_cost = data.iloc[-1,-1]
     max_to_deliver = data["quantity"].sum()
     if max_to_deliver >= quantity_to_deliver:
@@ -117,7 +117,7 @@ def cost_return(id: int, quantity_returned: int):
         max_out = sum([ product.quantity for product in products if product.quantity < 0 ])
 
         if -max_out > quantity_returned:
-            data = inventory_report(product_to_record.product_name)
+            data = get_inventory_data(product_to_record.product_name)
             unit_cost = data.loc[data["id_product"] == id, "unit_cost"].item()
             total = unit_cost * quantity_returned
             product_to_return = ProductList(

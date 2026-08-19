@@ -1,12 +1,12 @@
 from nicegui import ui
-from inventory_control.tools import ToDecimal, inventory_report
+from inventory_control.tools import ToDecimal, get_inventory_data
 from inventory_control.db_models import Operations, ProductList, Products
 import pandas as pd
 from inventory_control.db_models import purchase_return
 
 class PurchaseReturnForm:
     def __init__(self):
-        container = ui.column().classes("w-full justify-center items-center p-10")
+        container = ui.column().classes("justify-center items-center p-10 ml-40")
         with container:
             with ui.row().classes("mb-5"):
                 with ui.column().classes("columns-4"):
@@ -22,11 +22,11 @@ class PurchaseReturnForm:
                     ui.label(text="Total").classes("text-4xl")
                     self.total_returned = ui.label(text="0.00").classes("text-4xl w-1 max-w-3")
 
-            self.table_container = ui.column().classes("w-2/3") 
+        self.table_container = ui.column().classes("w-full ml-40") 
 
 
     def get_information(self) -> pd.Dataframe:
-        df = inventory_report(self.selected_product_input.value)
+        df = get_inventory_data(self.selected_product_input.value)
         df = df.loc[df["operation"] == "Purchase"]
         df = df.drop(columns=["related_id"])
         return df

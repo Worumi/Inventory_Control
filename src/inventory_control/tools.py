@@ -2,7 +2,7 @@ def ToDecimal(value: str | float, digits: int = 2):
     import decimal
     return decimal.Decimal(value).quantize(decimal.Decimal(f"0.{"0"*digits}"))
 
-def inventory_report(product: str):
+def get_inventory_data(product: str):
     import pandas as pd
     from inventory_control.db_models import engine
     
